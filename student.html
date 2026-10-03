@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Facing our emotions · Explorer K Unit C Lesson 1</title>
+<style>
+:root{
+  --ink:#1c2740; --muted:#5a6580; --paper:#f4f6fb; --card:#ffffff; --line:#d9deea;
+  --accent:#3347c9; --accent-soft:#e6e9fb; --good:#17794f; --good-soft:#dff3e8;
+  --bad:#b3263f; --bad-soft:#fbe3e7; --adv:#8a4b00; --adv-soft:#fdebd2;
+  --radius:10px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#e8ecf7; --muted:#a2adc7; --paper:#121828; --card:#1b2338; --line:#2f3a57;
+    --accent:#8c9bff; --accent-soft:#242e55; --good:#5fd29c; --good-soft:#17382b;
+    --bad:#ff8fa3; --bad-soft:#40202a; --adv:#ffc276; --adv-soft:#3d2c14;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Avenir Next","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;font-size:17px}
+h1,h2,h3{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;line-height:1.2;margin:0}
+header.top{padding:28px 20px 18px;max-width:900px;margin:0 auto}
+header.top h1{font-size:clamp(1.7rem,4vw,2.4rem)}
+header.top p{margin:8px 0 0;color:var(--muted);max-width:60ch}
+nav.steps{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);
+  display:flex;gap:6px;overflow-x:auto;padding:10px 14px;scrollbar-width:thin}
+nav.steps a{flex:none;text-decoration:none;color:var(--ink);padding:6px 12px;border-radius:20px;
+  border:1px solid var(--line);font-size:.9rem;background:var(--card)}
+nav.steps a:hover,nav.steps a:focus-visible{background:var(--accent-soft);outline:2px solid var(--accent)}
+main{max-width:900px;margin:0 auto;padding:10px 16px 60px}
+section.task{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:18px 0}
+section.task h2{font-size:1.45rem;margin-bottom:4px}
+.aim{color:var(--muted);margin:0 0 14px;font-size:.95rem}
+.q{margin:12px 0}
+.q label{display:block;font-weight:600;margin-bottom:5px}
+textarea,input[type=text],select{width:100%;font:inherit;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+textarea{min-height:76px;resize:vertical}
+textarea:focus,input:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);
+  color:#fff;padding:9px 16px}
+@media (prefers-color-scheme:dark){button{color:#10152b}}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.hint{color:var(--muted);font-size:.9rem}
+.key{margin-top:14px;padding:14px 16px;border-radius:8px;background:var(--good-soft);border-left:5px solid var(--good)}
+.key h3{font-size:1.05rem;margin-bottom:6px}
+.key ul{margin:6px 0 0;padding-left:20px}
+.key[hidden]{display:none}
+.ok{background:var(--good-soft)!important;border-color:var(--good)!important}
+.no{background:var(--bad-soft)!important;border-color:var(--bad)!important}
+.msg{margin-top:10px;font-weight:600}
+.tf{display:grid;gap:12px}
+.tfitem{border:1px solid var(--line);border-radius:8px;padding:12px}
+.tfitem .btns{display:flex;gap:8px;margin-top:8px}
+.tfitem .btns button{background:transparent;color:var(--ink);border-color:var(--line);min-width:64px}
+.tfitem .btns button[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media (prefers-color-scheme:dark){.tfitem .btns button[aria-pressed=true]{color:#10152b}}
+.why{margin-top:8px;font-size:.93rem;color:var(--muted)}
+.match{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:760px){.match{grid-template-columns:1fr 1fr}}
+.match .words{display:grid;gap:8px}
+.match .wrow{display:grid;grid-template-columns:1fr 90px;gap:8px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.match .wrow .keynote{grid-column:1 / -1;font-size:.9rem}
+.defs{margin:0;padding:0;list-style:none;font-size:.95rem}
+.defs li{padding:6px 0;border-bottom:1px dashed var(--line)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.chip{padding:5px 12px;border-radius:20px;background:var(--accent-soft);border:1px solid var(--line);font-size:.93rem}
+.gap{display:grid;gap:10px}
+.gapitem{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px;border-radius:8px;border:1px solid transparent}
+.gapitem input{width:190px;display:inline-block}
+.small{font-size:.9rem}
+.roles{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:700px){.roles{grid-template-columns:1fr 1fr}}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--paper)}
+.checks{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.checks label{display:inline-flex;gap:6px;align-items:center;padding:5px 12px;border-radius:20px;
+  border:1px solid var(--line);cursor:pointer;background:var(--paper)}
+.checks input:checked+span{font-weight:700;color:var(--good)}
+.scenario{font-size:1.05rem}
+
+/* Vocabulary slides */
+.vtabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+.vtabs button{background:transparent;color:var(--ink);border-color:var(--line)}
+.vtabs button[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media (prefers-color-scheme:dark){.vtabs button[aria-pressed=true]{color:#10152b}}
+.slide{border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;background:var(--paper);min-height:320px}
+.slide .tag{display:inline-block;font-size:.8rem;padding:2px 10px;border-radius:12px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px}
+.slide .tag.adv{background:var(--adv-soft);color:var(--adv)}
+.slide h3{font-size:clamp(1.8rem,5vw,2.6rem);margin-bottom:2px}
+.slide .pos{color:var(--muted);font-style:italic;margin-bottom:14px}
+.slide dl{margin:0;display:grid;gap:10px}
+.slide dt{font-weight:700;font-size:.9rem;color:var(--muted)}
+.slide dd{margin:0}
+.slide .say{padding:10px 12px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:6px}
+.vnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}
+.vnav .count{color:var(--muted);font-size:.95rem}
+.dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.dots span{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots span.on{background:var(--accent)}
+footer{max-width:900px;margin:0 auto;padding:0 20px 30px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Facing our emotions</h1>
+  <p>Explorer K · Unit C "Best friends" · Lesson 1. Start with the vocabulary slides, then work through each task. Give your answer first, then check it. Speak out loud before you write.</p>
+</header>
+
+<nav class="steps" aria-label="Lesson tasks">
+  <a href="#t0">Vocabulary</a><a href="#t1">1 Lead-in</a><a href="#t2">2 Listening</a><a href="#t3">3 True/False</a>
+  <a href="#t4">4 Matching</a><a href="#t5">5 Gaps</a><a href="#t6">6 Fear-setting</a>
+  <a href="#t7">7 Discussion</a><a href="#t8">8 Role play</a>
+</nav>
+
+<main>
+
+<!-- 0 VOCABULARY SLIDES -->
+<section class="task" id="t0">
+  <h2>Vocabulary: warm-up</h2>
+  <p class="aim">Read each slide, say the example sentence out loud, then make your own sentence. Use the arrow keys or the buttons.</p>
+  <div class="vtabs" role="group" aria-label="Choose vocabulary set">
+    <button data-set="all" aria-pressed="true">All words</button>
+    <button data-set="target" aria-pressed="false">Target (7)</button>
+    <button data-set="adv" aria-pressed="false">Advanced (12)</button>
+  </div>
+  <div class="slide" id="slide" aria-live="polite"></div>
+  <div class="vnav">
+    <button class="ghost" id="vPrev">Previous</button>
+    <span class="count" id="vCount"></span>
+    <button id="vNext">Next</button>
+  </div>
+  <div class="dots" id="vDots" aria-hidden="true"></div>
+</section>
+
+<!-- 1 LEAD-IN -->
+<section class="task" id="t1">
+  <h2>1. Lead-in</h2>
+  <p class="aim">Talk with a partner first. Then write one key idea each.</p>
+  <div class="q"><label for="l1a">a. What emotions do you think the person in the picture might be experiencing?</label><textarea id="l1a"></textarea></div>
+  <div class="q"><label for="l1b">b. What emotions do you think are challenging to face?</label><textarea id="l1b"></textarea></div>
+  <div class="q"><label for="l1c">c. How do you usually deal with strong emotions?</label><textarea id="l1c"></textarea></div>
+  <div class="row"><button id="l1btn">Show speaking boosters</button></div>
+  <div class="key" id="l1key" hidden>
+    <h3>Answers will vary. Try these starters:</h3>
+    <ul>
+      <li>I think she might be feeling… because…</li>
+      <li>For me, the hardest emotion to face is… because…</li>
+      <li>When I feel overwhelmed, I usually… but sometimes I…</li>
+      <li>That's interesting. Can you give me an example?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 2 LISTENING -->
+<section class="task" id="t2">
+  <h2>2. Listening: Phobias and fears</h2>
+  <p class="aim">Listen once. What specific fears do Emma, Jack and Tom mention? Make notes, then compare with your partner.</p>
+  <div class="q"><label for="emma">Emma</label><textarea id="emma"></textarea></div>
+  <div class="q"><label for="jack">Jack</label><textarea id="jack"></textarea></div>
+  <div class="q"><label for="tom">Tom</label><textarea id="tom"></textarea></div>
+  <div class="row"><button id="l2btn">Check my notes</button><span class="hint">Write at least one note first.</span></div>
+  <div class="msg" id="l2msg"></div>
+  <div class="key" id="l2key" hidden>
+    <h3>Expected answers</h3>
+    <ul>
+      <li><b>Emma:</b> strongly dislikes needles and injections (feels nauseous, lightheaded and dizzy at blood tests; she fainted as a child at the doctor's).</li>
+      <li><b>Jack:</b> clowns, <i>coulrophobia</i>. He thinks they look sad, scary and a bit sinister.</li>
+      <li><b>Tom:</b> heights (cannot look out of a window above the 4th floor) and lifts. He also gets nervous speaking in public: he sweats and his mind goes blank.</li>
+    </ul>
+    <p class="small">Discuss: Emma says "I wouldn't exactly label it as a phobia." What is the difference between a <b>fear</b> and a <b>phobia</b>? Do you have one?</p>
+  </div>
+</section>
+
+<!-- 3 TRUE / FALSE -->
+<section class="task" id="t3">
+  <h2>3. True or false?</h2>
+  <p class="aim">Decide, and be ready to give evidence from the audio.</p>
+  <div class="tf" id="tfList"></div>
+  <div class="row"><button id="tfCheck">Check answers</button><button class="ghost" id="tfReset">Try again</button></div>
+  <div class="msg" id="tfMsg"></div>
+</section>
+
+<!-- 4 MATCHING -->
+<section class="task" id="t4">
+  <h2>4. Match the words to the definitions</h2>
+  <p class="aim">Choose the letter for each word.</p>
+  <div class="match">
+    <div class="words" id="mWords"></div>
+    <ul class="defs" id="mDefs"></ul>
+  </div>
+  <div class="row"><button id="mCheck">Check answers</button><button class="ghost" id="mReset">Try again</button></div>
+  <div class="msg" id="mMsg"></div>
+</section>
+
+<!-- 5 GAPS -->
+<section class="task" id="t5">
+  <h2>5. Fill in the gaps</h2>
+  <p class="aim">Use words from Task 4. The word <b>to</b> is already in the sentence, so don't write it.</p>
+  <div class="bank" id="bank"></div>
+  <div class="gap" id="gapList"></div>
+  <div class="row"><button id="gCheck">Check answers</button><button class="ghost" id="gReset">Try again</button></div>
+  <div class="msg" id="gMsg"></div>
+  <div class="key" id="gKey" hidden>
+    <h3>Now say it: write your own sentence with one of these words and read it aloud.</h3>
+    <textarea id="ownSentence" aria-label="Your own sentence"></textarea>
+  </div>
+</section>
+
+<!-- 6 FEAR SETTING -->
+<section class="task" id="t6">
+  <h2>6. Fear-setting</h2>
+  <p class="aim">Choose a fear or challenge you are facing. Complete the template, then explain it to your partner.</p>
+  <div class="q"><label for="fs1">Fear or challenge</label><textarea id="fs1" style="min-height:50px"></textarea></div>
+  <div class="q"><label for="fs2">Worst-case scenarios</label><textarea id="fs2"></textarea></div>
+  <div class="q"><label for="fs3">Preventive measures</label><textarea id="fs3"></textarea></div>
+  <div class="q"><label for="fs4">Strategies for overcoming the fear</label><textarea id="fs4"></textarea></div>
+  <div class="row"><button id="fsBtn">Show a model example</button><span class="hint">Fill in at least the first box.</span></div>
+  <div class="msg" id="fsMsg"></div>
+  <div class="key" id="fsKey" hidden>
+    <h3>Model: public speaking anxiety</h3>
+    <ul>
+      <li><b>Worst case:</b> forget key points; feel so nervous that it shows; technical problems; negative feedback.</li>
+      <li><b>Preventive:</b> rehearse thoroughly; practise deep breathing; check equipment beforehand; ask for feedback early.</li>
+      <li><b>Strategies:</b> practise in small, supportive groups; visualise a successful talk; join a speaking club; focus on the message, not on yourself.</li>
+    </ul>
+    <p class="small">Answers will vary. Tell your partner: "My biggest challenge is… The worst that could happen is… To prevent it, I would… To overcome it, I will…"</p>
+  </div>
+</section>
+
+<!-- 7 DISCUSSION -->
+<section class="task" id="t7">
+  <h2>7. Answer honestly</h2>
+  <p class="aim">Think and write for 2 minutes, then share. Give a real example.</p>
+  <div class="q"><label for="d1">a. How do you typically face challenges in your life, and what strategies do you use to overcome difficult situations?</label><textarea id="d1"></textarea></div>
+  <div class="q"><label for="d2">b. How did you calm down and regain control of a situation where you felt stressed or overwhelmed?</label><textarea id="d2"></textarea></div>
+  <div class="q"><label for="d3">c. Think of a time you had to make a significant decision under pressure. How did you make sure it was rational and not influenced by panic?</label><textarea id="d3"></textarea></div>
+  <div class="row"><button id="dBtn">Show useful language</button></div>
+  <div class="key" id="dKey" hidden>
+    <h3>Answers will vary. Useful language</h3>
+    <ul>
+      <li>The first thing I do is… / What usually helps me is…</li>
+      <li>I managed to calm down by… and eventually I regained control of…</li>
+      <li>I was conscious of… so I decided to…</li>
+      <li>Looking back, I think I was (not) rational because…</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8 ROLE PLAY -->
+<section class="task" id="t8">
+  <h2>8. Role play</h2>
+  <p class="aim">Work in pairs. Speak for about 3 minutes, then swap roles. Use the target language.</p>
+  <div class="card scenario" id="scenarioBox"></div>
+  <div class="row"><button id="newScenario">Next scenario</button></div>
+  <div class="roles">
+    <div class="card"><b>Student A</b><br><span id="roleA"></span></div>
+    <div class="card"><b>Student B</b><br><span id="roleB"></span></div>
+  </div>
+  <p style="margin:14px 0 4px"><b>Target language: tick each one when you use it</b></p>
+  <div class="checks" id="vocabChecks"></div>
+  <div class="msg" id="vocabMsg"></div>
+  <div class="row"><button id="rpBtn">Show a model exchange</button></div>
+  <div class="key" id="rpKey" hidden>
+    <h3>Model exchange (Overcoming a phobia)</h3>
+    <ul>
+      <li><b>A:</b> I panic whenever I have to go up to a high floor. It started when I was a child.</li>
+      <li><b>B:</b> That must be hard. The first step is to be conscious of what happens to your body. What helps you calm down?</li>
+      <li><b>A:</b> Slow breathing, but I can't be rational when I'm really scared.</li>
+      <li><b>B:</b> What if you tried one floor at a time? Little by little, you could regain control and overcome your fear.</li>
+    </ul>
+    <p class="small">Your own version will be different. That is good.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>Your answers stay in your browser and are not saved or sent anywhere.</footer>
+
+<script>
+(function(){
+  var $ = function(s){return document.querySelector(s)};
+  var $$ = function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  var letters = 'abcdefghijklmnopqrstuvwxyz';
+  function reveal(id){ $(id).hidden = false; }
+  function filled(sel){ return $$(sel).some(function(e){return e.value.trim().length>0}); }
+
+  /* ---------- Vocabulary slides ---------- */
+  var vocab = [
+    {set:'target', w:'calm down', pos:'phrasal verb',
+     def:'To become less upset, angry or nervous; to make yourself or someone else feel relaxed.',
+     ex:'Take a deep breath and try to calm down before the presentation.',
+     say:'Tell your partner what helps you calm down.'},
+    {set:'target', w:'be rational', pos:'adjective phrase',
+     def:'To think and act based on reason and facts, not on emotion.',
+     ex:'It is hard to be rational when you are afraid.',
+     say:'When is it difficult for you to be rational?'},
+    {set:'target', w:'cure', pos:'verb / noun',
+     def:'To make someone healthy again after an illness; or a treatment that ends a disease or problem.',
+     ex:'Scientists are still looking for a cure for many serious diseases.',
+     say:'What is one problem you wish someone could cure?'},
+    {set:'target', w:'be conscious of', pos:'adjective phrase',
+     def:'To be aware of something and notice it.',
+     ex:'I became conscious of my heartbeat when I stood up to speak.',
+     say:'What are you conscious of in your body when you feel nervous?'},
+    {set:'target', w:'panic (about sth)', pos:'verb / noun',
+     def:'A sudden, strong fear that makes it hard to think clearly; to feel or act this way.',
+     ex:'There is no need to panic about one small mistake.',
+     say:'What do people often panic about?'},
+    {set:'target', w:'regain control', pos:'verb phrase',
+     def:'To take back power over a situation or over your own feelings after losing it.',
+     ex:'She closed her eyes and slowly regained control of her breathing.',
+     say:'Describe a time you had to regain control.'},
+    {set:'target', w:'overcome fear', pos:'verb phrase',
+     def:'To succeed in dealing with a fear so that it no longer stops you.',
+     ex:'He overcame his fear of water by taking swimming lessons.',
+     say:'How could someone overcome a fear of flying?'},
+
+    {set:'adv', w:'phobia', pos:'noun',
+     def:'An extreme and often irrational fear of a specific thing or situation.',
+     ex:'Jack has coulrophobia, a phobia of clowns. Other examples: acrophobia (heights), claustrophobia (enclosed spaces), trypanophobia (needles).',
+     say:'What is the difference between a fear and a phobia?'},
+    {set:'adv', w:'apprehension', pos:'noun (adj: apprehensive)',
+     def:'Anxiety or worry that something unpleasant may happen.',
+     ex:'He felt a flicker of apprehension before opening the exam results.',
+     say:'When did you last feel apprehensive?'},
+    {set:'adv', w:'trepidation', pos:'noun',
+     def:'A feeling of fear or nervousness about something that is going to happen. More formal than "nervousness".',
+     ex:'She walked onto the stage with trepidation.',
+     say:'Use "with trepidation" to describe a future event in your life.'},
+    {set:'adv', w:'composure', pos:'noun',
+     def:'The state of being calm and in control of your feelings, especially in a difficult situation.',
+     ex:'Despite the technical problems, the speaker kept her composure.',
+     say:'Who do you know that always keeps their composure?'},
+    {set:'adv', w:'resilience', pos:'noun (adj: resilient)',
+     def:'The ability to recover quickly from difficulties and keep going.',
+     ex:'Facing small fears step by step can build resilience.',
+     say:'What helps people become more resilient?'},
+    {set:'adv', w:'overwhelmed', pos:'adjective',
+     def:'Feeling that your emotions or your workload are too strong or too much to handle.',
+     ex:'I felt overwhelmed when everything went wrong on the same day.',
+     say:'What makes you feel overwhelmed, and what do you do about it?'},
+    {set:'adv', w:'aversion', pos:'noun',
+     def:'A strong dislike of something or someone, often with a wish to avoid it.',
+     ex:'Emma has a strong aversion to needles. (Related verb: detest = to dislike intensely.)',
+     say:'Do you have an aversion to anything? Explain why.'},
+    {set:'adv', w:'lightheaded / faint', pos:'adjective / verb',
+     def:'Lightheaded: dizzy, as if you might fall. To faint: to lose consciousness for a short time.',
+     ex:'She felt lightheaded during the blood test and nearly fainted.',
+     say:'Which situations make people feel lightheaded?'},
+    {set:'adv', w:'sinister', pos:'adjective',
+     def:'Seeming evil or harmful, so that you feel something bad may happen.',
+     ex:'Jack finds clowns sad, scary and even somewhat sinister.',
+     say:'Describe something that looks sinister at night.'},
+    {set:'adv', w:'confront', pos:'verb',
+     def:'To face a problem or a person directly, instead of avoiding it.',
+     ex:'The best way to deal with fear is often to confront it gradually.',
+     say:'Is it always a good idea to confront your fears? Why or why not?'},
+    {set:'adv', w:'gradual exposure', pos:'noun phrase',
+     def:'Facing a fear slowly, in small steps, so that you become used to it.',
+     ex:'Gradual exposure to speaking in small groups can reduce public speaking anxiety.',
+     say:'Plan three small steps to face a fear using gradual exposure.'},
+    {set:'adv', w:'coping strategy', pos:'noun phrase',
+     def:'A method you use to deal with stress or difficult emotions. Related: cope with (verb).',
+     ex:'Deep breathing is a simple coping strategy before a presentation.',
+     say:'What is your favourite coping strategy?'}
+  ];
+  var vSet = 'all', vList = vocab.slice(), vI = 0;
+  function renderSlide(){
+    var v = vList[vI];
+    $('#slide').innerHTML =
+      '<span class="tag'+(v.set==='adv'?' adv':'')+'">'+(v.set==='adv'?'Advanced':'Target')+'</span>' +
+      '<h3>'+v.w+'</h3><div class="pos">'+v.pos+'</div>' +
+      '<dl><div><dt>Meaning</dt><dd>'+v.def+'</dd></div>' +
+      '<div><dt>Example</dt><dd>'+v.ex+'</dd></div>' +
+      '<div><dt>Say it</dt><dd class="say">'+v.say+'</dd></div></dl>';
+    $('#vCount').textContent = (vI+1)+' / '+vList.length;
+    $('#vPrev').disabled = vI===0;
+    $('#vNext').disabled = vI===vList.length-1;
+    var dots = '';
+    for(var i=0;i<vList.length;i++){ dots += '<span'+(i===vI?' class="on"':'')+'></span>'; }
+    $('#vDots').innerHTML = dots;
+  }
+  $$('.vtabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('.vtabs button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');
+      vSet = b.dataset.set;
+      vList = vocab.filter(function(v){return vSet==='all' || v.set===vSet});
+      vI = 0; renderSlide();
+    });
+  });
+  $('#vPrev').addEventListener('click', function(){ if(vI>0){vI--; renderSlide();} });
+  $('#vNext').addEventListener('click', function(){ if(vI<vList.length-1){vI++; renderSlide();} });
+  document.addEventListener('keydown', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if(tag==='TEXTAREA' || tag==='INPUT' || tag==='SELECT') return;
+    if(e.key==='ArrowRight'){ $('#vNext').click(); }
+    if(e.key==='ArrowLeft'){ $('#vPrev').click(); }
+  });
+  renderSlide();
+
+  /* ---------- 1 Lead-in ---------- */
+  $('#l1btn').addEventListener('click', function(){
+    if(!filled('#l1a,#l1b,#l1c')){ alert('Write or say at least one answer first.'); return; }
+    reveal('#l1key');
+  });
+
+  /* ---------- 2 Listening ---------- */
+  $('#l2btn').addEventListener('click', function(){
+    if(!filled('#emma,#jack,#tom')){ $('#l2msg').textContent='Write at least one note before checking.'; return; }
+    $('#l2msg').textContent='';
+    reveal('#l2key');
+  });
+
+  /* ---------- 3 True / False ---------- */
+  var tf = [
+    {t:"Emma loves needles and injections.", a:false, why:"She really dislikes needles and injections."},
+    {t:"Jack's fear of clowns is known as coulrophobia.", a:true, why:"Jack says there is a term for it: coulrophobia."},
+    {t:"Emma's aversion to needles began when she was at the doctor's office with her dad.", a:false, why:"She was with her mom and older sister."},
+    {t:"Tom is afraid of heights, according to the conversation.", a:true, why:"He can't look out of a window above the fourth floor."},
+    {t:"Jack dislikes using stairs and prefers lifts.", a:false, why:"It is Tom who hates lifts and takes the stairs."},
+    {t:"Tom feels completely at ease when speaking in public.", a:false, why:"He gets nervous, sweats, and his mind goes blank."}
+  ];
+  var tfAns = [];
+  tf.forEach(function(item,i){
+    var d = document.createElement('div'); d.className='tfitem'; d.id='tf'+i;
+    d.innerHTML = '<div><b>'+letters[i]+'.</b> '+item.t+'</div>' +
+      '<div class="btns"><button data-v="true" aria-pressed="false">True</button><button data-v="false" aria-pressed="false">False</button></div>' +
+      '<div class="why" hidden></div>';
+    d.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        d.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+        b.setAttribute('aria-pressed','true'); tfAns[i] = (b.dataset.v==='true');
+      });
+    });
+    $('#tfList').appendChild(d);
+  });
+  $('#tfCheck').addEventListener('click', function(){
+    var answered = tfAns.filter(function(x){return x!==undefined}).length;
+    if(answered===0){ $('#tfMsg').textContent='Choose True or False for at least one statement.'; return; }
+    var score = 0;
+    tf.forEach(function(item,i){
+      var d = $('#tf'+i), why = d.querySelector('.why');
+      d.classList.remove('ok','no');
+      if(tfAns[i]!==undefined){
+        var right = tfAns[i]===item.a; if(right) score++;
+        d.classList.add(right?'ok':'no');
+      }
+      why.hidden=false;
+      why.textContent = 'Answer: ' + (item.a?'True':'False') + '. ' + item.why;
+    });
+    $('#tfMsg').textContent = 'Score: ' + score + ' / ' + tf.length + '. Explain each answer with evidence.';
+  });
+  $('#tfReset').addEventListener('click', function(){
+    tfAns = [];
+    tf.forEach(function(_,i){
+      var d=$('#tf'+i); d.classList.remove('ok','no'); d.querySelector('.why').hidden=true;
+      d.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+    });
+    $('#tfMsg').textContent='';
+  });
+
+  /* ---------- 4 Matching ---------- */
+  var words = [
+    {w:"Regain control", a:"f"}, {w:"Be conscious of", a:"d"}, {w:"Cure", a:"c"}, {w:"Overcome fear", a:"b"},
+    {w:"Be rational", a:"g"}, {w:"Panic", a:"a"}, {w:"Calm down", a:"e"}
+  ];
+  var defs = [
+    "To experience sudden and intense feelings of fear or anxiety.",
+    "To successfully confront and conquer a feeling of dread or unease.",
+    "To treat and eliminate a particular condition or problem.",
+    "To be aware and mindful of something, especially one's own thoughts or actions.",
+    "To reduce stress and anxiety by bringing emotions under control through relaxation techniques.",
+    "To regain composure and manage emotions effectively.",
+    "To approach a situation or problem with logical and reasonable thinking."
+  ];
+  defs.forEach(function(d,i){ var li=document.createElement('li'); li.innerHTML='<b>'+letters[i]+'.</b> '+d; $('#mDefs').appendChild(li); });
+  words.forEach(function(x,i){
+    var r = document.createElement('div'); r.className='wrow'; r.id='m'+i;
+    var opts = '<option value="">–</option>' + defs.map(function(_,k){return '<option value="'+letters[k]+'">'+letters[k]+'</option>'}).join('');
+    r.innerHTML = '<span><b>'+(i+1)+'.</b> '+x.w+'</span><select aria-label="Definition for '+x.w+'">'+opts+'</select><span class="keynote" hidden></span>';
+    $('#mWords').appendChild(r);
+  });
+  $('#mCheck').addEventListener('click', function(){
+    var any = $$('#mWords select').some(function(s){return s.value});
+    if(!any){ $('#mMsg').textContent='Choose at least one match first.'; return; }
+    var score=0;
+    words.forEach(function(x,i){
+      var r=$('#m'+i), s=r.querySelector('select'), note=r.querySelector('.keynote');
+      r.classList.remove('ok','no');
+      var right = s.value===x.a;
+      if(right){ score++; r.classList.add('ok'); note.hidden=true; }
+      else { r.classList.add('no'); note.hidden=false; note.textContent='Expected answer: '+x.a+'. '+defs[letters.indexOf(x.a)]; }
+    });
+    $('#mMsg').textContent='Score: '+score+' / '+words.length+'. Read each word and its definition aloud.';
+  });
+  $('#mReset').addEventListener('click', function(){
+    $$('#mWords select').forEach(function(s){s.value=''});
+    words.forEach(function(_,i){var r=$('#m'+i);r.classList.remove('ok','no');r.querySelector('.keynote').hidden=true;});
+    $('#mMsg').textContent='';
+  });
+
+  /* ---------- 5 Gaps ---------- */
+  ["panic","be conscious of","calm down","be rational","regain control","cure","overcome fear"].forEach(function(w){
+    var c=document.createElement('span'); c.className='chip'; c.textContent=w; $('#bank').appendChild(c);
+  });
+  var gaps = [
+    {pre:"People often ", post:" about things that are beyond their control.", a:"panic"},
+    {pre:"It's essential to ", post:" your breathing during moments of stress.", a:"be conscious of"},
+    {pre:"Deep breathing exercises can help you ", post:" when feeling overwhelmed.", a:"calm down"},
+    {pre:"When facing a challenging situation, it's crucial to ", post:" in your decision-making.", a:"be rational"},
+    {pre:"After the car accident, Sarah needed to ", post:" of her emotions.", a:"regain control"},
+    {pre:"The doctor prescribed medication to ", post:" the patient's anxiety.", a:"cure"},
+    {pre:"Instead of letting fear take over, try to ", post:" by facing it gradually.", a:"overcome fear"}
+  ];
+  gaps.forEach(function(g,i){
+    var d=document.createElement('div'); d.className='gapitem'; d.id='g'+i;
+    d.innerHTML='<b>'+letters[i]+'.</b> <span>'+g.pre+'</span><input type="text" autocomplete="off" aria-label="Gap '+letters[i]+'"><span>'+g.post+'</span><span class="small" hidden></span>';
+    $('#gapList').appendChild(d);
+  });
+  function norm(s){ return s.toLowerCase().replace(/\s+/g,' ').trim().replace(/^to /,''); }
+  $('#gCheck').addEventListener('click', function(){
+    if(!$$('#gapList input').some(function(x){return x.value.trim()})){ $('#gMsg').textContent='Fill in at least one gap first.'; return; }
+    var score=0;
+    gaps.forEach(function(g,i){
+      var d=$('#g'+i), inp=d.querySelector('input'), note=d.querySelector('.small');
+      d.classList.remove('ok','no');
+      var right = norm(inp.value)===g.a;
+      if(right) score++;
+      d.classList.add(right?'ok':'no');
+      note.hidden = right; note.textContent = right?'':'Expected answer: '+g.a;
+    });
+    $('#gMsg').textContent='Score: '+score+' / '+gaps.length+'.';
+    reveal('#gKey');
+  });
+  $('#gReset').addEventListener('click', function(){
+    $$('#gapList input').forEach(function(x){x.value=''});
+    gaps.forEach(function(_,i){var d=$('#g'+i);d.classList.remove('ok','no');d.querySelector('.small').hidden=true;});
+    $('#gMsg').textContent='';
+  });
+
+  /* ---------- 6 Fear-setting ---------- */
+  $('#fsBtn').addEventListener('click', function(){
+    if(!$('#fs1').value.trim()){ $('#fsMsg').textContent='Write your fear or challenge first.'; return; }
+    $('#fsMsg').textContent=''; reveal('#fsKey');
+  });
+
+  /* ---------- 7 Discussion ---------- */
+  $('#dBtn').addEventListener('click', function(){
+    if(!filled('#d1,#d2,#d3')){ alert('Write at least one answer first.'); return; }
+    reveal('#dKey');
+  });
+
+  /* ---------- 8 Role play ---------- */
+  var scenarios = [
+    {t:"Overcoming a phobia. You have a strong fear or phobia (for example heights or spiders).",
+     a:"You have the fear. Explain it, say how it started, and ask for encouragement.",
+     b:"You are a supportive friend or family member. Ask questions, give advice, and encourage."},
+    {t:"A big presentation. A character is afraid of public speaking and must give an important presentation.",
+     a:"You are the nervous presenter. Say what you are worried about.",
+     b:"You are a friend. Help your partner stay rational and prepare."},
+    {t:"After an illness. A character has recently recovered from a serious illness and is reflecting on it.",
+     a:"You recovered. Describe how you felt and how you regained control.",
+     b:"You are a close friend. Ask about the experience and what you learned."}
+  ];
+  var sIdx = 0;
+  var rpWords = ["calm down","be rational","cure","be conscious of","panic (about)","regain control","overcome fear"];
+  function renderScenario(){
+    var s = scenarios[sIdx];
+    $('#scenarioBox').textContent = s.t;
+    $('#roleA').textContent = s.a; $('#roleB').textContent = s.b;
+    var vc = $('#vocabChecks'); vc.innerHTML='';
+    rpWords.forEach(function(v){
+      var l=document.createElement('label'); l.innerHTML='<input type="checkbox"><span>'+v+'</span>';
+      l.querySelector('input').addEventListener('change', function(){
+        var n = $$('#vocabChecks input:checked').length;
+        $('#vocabMsg').textContent = n+' / '+rpWords.length+' words used'+(n===rpWords.length?'. Well done! Now swap roles.':'.');
+      });
+      vc.appendChild(l);
+    });
+    $('#vocabMsg').textContent='';
+  }
+  $('#newScenario').addEventListener('click', function(){ sIdx=(sIdx+1)%scenarios.length; renderScenario(); });
+  $('#rpBtn').addEventListener('click', function(){
+    if($$('#vocabChecks input:checked').length===0){ $('#vocabMsg').textContent='Try the role play first, then tick the words you used.'; return; }
+    reveal('#rpKey');
+  });
+  renderScenario();
+})();
+</script>
+</body>
+</html>
